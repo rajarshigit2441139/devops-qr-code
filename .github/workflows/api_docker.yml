@@ -18,7 +18,7 @@ jobs:
 
     steps:
       - name: Code CheckOut
-        uses: action/checkout@v4
+        uses: actions/checkout@v4
 
       - name: Use Common Action For Build
         id: Shared
