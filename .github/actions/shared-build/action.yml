@@ -34,10 +34,11 @@ runs:
       id: docker_dir
       shell: bash
       run: |
-        # Remove trailing slashes, then get the directory name
-        dir="${{ inputs.context }}"
-        dir="${dir%/}"  # remove trailing slash
-        echo "name=$(basename "$dir")" >> "$GITHUB_OUTPUT"
+        dockerfile_path="${{ inputs.dockerfile }}"
+        docker_dir=$(dirname "$dockerfile_path")
+        # Remove trailing slash if any
+        docker_dir="${docker_dir%/}"
+        echo "name=$(basename "$docker_dir")" >> "$GITHUB_OUTPUT"
 
     - name: Login to GHCR
       if: inputs.push == 'true'
