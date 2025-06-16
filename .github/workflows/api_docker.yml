@@ -1,0 +1,33 @@
+name: Build-Push Api docker image
+
+on:
+  push:
+    paths:
+      - 'api/**'
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to build and deploy maually'
+        required: false
+        default: 'main'
+        
+jobs:
+
+  build-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Code CheckOut
+        uses: action/checkout@v4
+
+      - name: Use Common Action For Build
+        id: Shared
+        uses: ./.github/actions/shared-build
+        with:
+          context: ./
+          dockerfile: api/Dockerfile
+          tag_prifix: ghcr.io/rajarshi2441139/devops-qr-code
+          push: "false"
+
+
+

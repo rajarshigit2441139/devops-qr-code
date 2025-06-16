@@ -1,0 +1,48 @@
+name: Shared Docker Action
+description: Shared stapes for build push Docker image
+
+inputs:
+  github_token:
+    description: GitHub token for GHCR login
+    required: false
+  context:
+    description: Dockerfile path
+    required: true
+  push:
+    description: load data to varify 
+    required: false
+    default: 'false'
+  
+
+runs:
+  using: "composite"
+  steps:
+    - name: Code CheckOut
+      uses: action/checkout@v4
+
+    - name: Set up Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Get Docker directory name
+      id: docker_dir
+      shell: bash
+      run: |
+        # Remove trailing slashes, then get the directory name
+        dir="${{ inputs.context }}"
+        dir="${dir%/}"  # remove trailing slash
+        echo "name=$(basename "$dir")" >> "$GITHUB_OUTPUT"
+
+    - name: Login to GHCR
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{github.actor}}
+        password: ${{inputs.github_token}}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v6
+      with:
+        context: ${{input.context}}
+        push: ${{inputs.push}}
+        load: ${{ inputs.push != 'true' }}
+        tags: ${{inputs.tag_prifix}}-${{ steps.docker_dir.outputs.name }}:latest
