@@ -12,6 +12,13 @@ inputs:
     description: load data to varify 
     required: false
     default: 'false'
+  tag_prifix:
+    description: Prefix for the Docker image tags
+    required: true
+  dockerfile:
+    description: Path to the Dockerfile relative to the context
+    required: true
+  
   
 
 runs:
