@@ -24,10 +24,7 @@ jobs:
         id: Shared
         uses: ./.github/actions/shared-build
         with:
-          context: ./
+          context: ./api
           dockerfile: api/Dockerfile
           tag_prifix: ghcr.io/rajarshi2441139/devops-qr-code
           push: "false"
-
-
-
