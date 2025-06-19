@@ -1,4 +1,4 @@
-name: Build-Push Api docker image
+name: Api Build-Push docker image
 
 on:
   push:
@@ -13,7 +13,7 @@ on:
         
 jobs:
 
-  build-test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,10 +21,25 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Use Common Action For Build
-        id: Shared
+        id: Shared_Build 
         uses: ./.github/actions/shared-build
         with:
           context: ./api
           dockerfile: api/Dockerfile
           tag_prifix: ghcr.io/rajarshi2441139/devops-qr-code
           push: "false"
+  
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./api
+          file: api/Dockerfile
+          push: true
+          tags: ghcr.io/rajarshi2441139/devops-qr-code-api:release-${{ github.sha }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
