@@ -58,6 +58,6 @@ runs:
         file: ${{ inputs.dockerfile }}
         push: ${{inputs.push}}
         load: ${{ inputs.push != 'true' }}
-        tags: ${{inputs.tag_prifix}}-${{ steps.docker_dir.outputs.name }}:${{tag_suffix:}}
+        tags: ${{inputs.tag_prifix}}-${{ steps.docker_dir.outputs.name }}:${{tag_suffix}}
         cache-from: type=gha
         cache-to: type=gha,mode=max
