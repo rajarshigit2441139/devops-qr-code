@@ -56,3 +56,5 @@ runs:
         push: ${{inputs.push}}
         load: ${{ inputs.push != 'true' }}
         tags: ${{inputs.tag_prifix}}-${{ steps.docker_dir.outputs.name }}:latest
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
