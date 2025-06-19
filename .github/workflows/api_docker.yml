@@ -41,5 +41,4 @@ jobs:
           push: true
           tags: ghcr.io/rajarshi2441139/devops-qr-code-api:release-${{ github.sha }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          
