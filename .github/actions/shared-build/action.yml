@@ -15,6 +15,9 @@ inputs:
   tag_prifix:
     description: Prefix for the Docker image tags
     required: true
+  tag_suffix:
+    description: Use as Docker tag.
+    required: true
   dockerfile:
     description: Path to the Dockerfile relative to the context
     required: true
@@ -55,6 +58,6 @@ runs:
         file: ${{ inputs.dockerfile }}
         push: ${{inputs.push}}
         load: ${{ inputs.push != 'true' }}
-        tags: ${{inputs.tag_prifix}}-${{ steps.docker_dir.outputs.name }}:latest
+        tags: ${{inputs.tag_prifix}}-${{ steps.docker_dir.outputs.name }}:${{tag_suffix:}}
         cache-from: type=gha
         cache-to: type=gha,mode=max
