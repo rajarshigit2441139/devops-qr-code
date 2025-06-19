@@ -27,18 +27,22 @@ jobs:
           context: ./api
           dockerfile: api/Dockerfile
           tag_prifix: ghcr.io/rajarshi2441139/devops-qr-code
+          tag_suffix: latest
           push: "false"
   
   release:
     runs-on: ubuntu-latest
+    needs: build
 
     steps:
-      - name: Build and Push Docker Image
-        uses: docker/build-push-action@v6
+      - name: Use Common Action For Push
+        id: Shared_Push
+        uses: ./.github/actions/shared-build
         with:
           context: ./api
           file: api/Dockerfile
           push: true
-          tags: ghcr.io/rajarshi2441139/devops-qr-code-api:release-${{ github.sha }}
+          tags_prifix: ghcr.io/rajarshi2441139/devops-qr-code-api
+          tag_suffix: latest
           github-token: ${{ secrets.GITHUB_TOKEN }}
           
