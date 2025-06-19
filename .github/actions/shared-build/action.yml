@@ -12,7 +12,7 @@ inputs:
     description: load data to varify 
     required: false
     default: 'false'
-  tag_prifix:
+  tag_prefix:
     description: Prefix for the Docker image tags
     required: true
   tag_suffix:
@@ -58,6 +58,6 @@ runs:
         file: ${{ inputs.dockerfile }}
         push: ${{inputs.push}}
         load: ${{ inputs.push != 'true' }}
-        tags: ${{inputs.tag_prifix}}-${{ steps.docker_dir.outputs.name }}:${{ inputs.tag_suffix }}
+        tags: ${{inputs.tag_prefix}}-${{ steps.docker_dir.outputs.name }}:${{ inputs.tag_suffix }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
