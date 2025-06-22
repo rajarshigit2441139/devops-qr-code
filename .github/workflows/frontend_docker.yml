@@ -1,4 +1,4 @@
-name: Api Build-Push docker image
+name: Frontend Build-Push docker image
 
 on:
   push:
