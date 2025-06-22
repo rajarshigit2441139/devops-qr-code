@@ -42,6 +42,7 @@ runs:
         # Remove trailing slash if any
         docker_dir="${docker_dir%/}"
         echo "name=$(basename "$docker_dir")" >> "$GITHUB_OUTPUT"
+        echo "name=$(basename "$docker_dir")"
 
     - name: Login to GHCR
       if: inputs.push == 'true'
