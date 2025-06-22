@@ -47,5 +47,5 @@ jobs:
           push: true
           tags_prefix: ghcr.io/rajarshi2441139/devops-qr-code-api
           tag_suffix: latest
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           
