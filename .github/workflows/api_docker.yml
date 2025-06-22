@@ -43,7 +43,7 @@ jobs:
         uses: ./.github/actions/shared-build
         with:
           context: ./api
-          file: api/Dockerfile
+          dockerfile: api/Dockerfile
           push: true
           tag_prefix: ghcr.io/rajarshi2441139/devops-qr-code
           tag_suffix: latest
