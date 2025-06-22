@@ -45,7 +45,7 @@ jobs:
           context: ./api
           file: api/Dockerfile
           push: true
-          tags_prefix: ghcr.io/rajarshi2441139/devops-qr-code-api
+          tag_prefix: ghcr.io/rajarshi2441139/devops-qr-code-api
           tag_suffix: latest
           github_token: ${{ secrets.GITHUB_TOKEN }}
           
