@@ -1,0 +1,51 @@
+name: Api Build-Push docker image
+
+on:
+  push:
+    paths:
+      - 'front-end-nextjs/**'
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to build and deploy maually'
+        required: false
+        default: 'main'
+        
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Code CheckOut
+        uses: actions/checkout@v4
+
+      - name: Use Common Action For Build
+        id: Shared_Build 
+        uses: ./.github/actions/shared-build
+        with:
+          context: ./front-end-nextjs
+          dockerfile: front-end-nextjs/Dockerfile
+          tag_prefix: ghcr.io/rajarshigit2441139/devops-qr-code
+          tag_suffix: latest
+          push: "false"
+  
+  release:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Code checkout
+        uses: actions/checkout@v4
+
+      - name: Use Common Action For Push
+        id: Shared_Push
+        uses: ./.github/actions/shared-build
+        with:
+          context: ./front-end-nextjs
+          dockerfile: front-end-nextjs/Dockerfile
+          push: true
+          tag_prefix: ghcr.io/rajarshigit2441139/devops-qr-code
+          tag_suffix: latest
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          
